@@ -3,7 +3,7 @@ import { Repo } from "../models/repo";
 import { searchRepos } from "../services/service";
 import { RepoDetail } from "./RepoDetail";
 import { RepoList } from "./RepoList";
-import { SearchBar } from "./SearchBar";
+import Header from "./Header";
 
 export const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +20,7 @@ export const Home: React.FC = () => {
 
   return (
     <div>
-      <SearchBar onSearch={setSearchTerm} />
+      <Header onSearch={setSearchTerm} />
       {selectedRepo ? (
         <RepoDetail repo={selectedRepo} />
       ) : (
