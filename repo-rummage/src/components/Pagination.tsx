@@ -1,52 +1,75 @@
-import { IconButton, ButtonGroup } from "@mui/material";
+import { IconButton, ButtonGroup, Select, MenuItem } from "@mui/material";
 import {
-  FirstPage,
-  LastPage,
-  ChevronLeft,
-  ChevronRight,
-} from "@mui/icons-material";
+  CaretDoubleLeft,
+  CaretDoubleRight,
+  CaretLeft,
+  CaretRight,
+} from "@phosphor-icons/react";
 
 type PaginationProps = {
-  linkHeader: string | null;
-  onPageChange: (page: number) => void;
+  currentPage: number;
+  setCurrentPage: (value: number) => void;
+  pageSize: number;
+  setPageSize: (value: number) => void;
+  totalCount: number;
 };
 
 const Pagination: React.FC<PaginationProps> = ({
-  linkHeader,
-  onPageChange,
+  currentPage,
+  setCurrentPage,
+  pageSize,
+  setPageSize,
+  totalCount,
 }) => {
-  const getLink = (rel: string) => {
-    const links = linkHeader?.split(",") || [];
-    const linkInfo = links.find((link) => link.includes(`rel="${rel}"`));
-    const match = linkInfo?.match(/<([^>]+)>; rel="([^"]+)"/);
-    return match?.[1] || ""; // Return an empty string instead of null if no match is found
-  };
-
-  const handlePageChange = (rel: string) => {
-    const link = getLink(rel);
-    if (link) {
-      // Only try to create a new URL if link is not an empty string
-      const url = new URL(link);
-      const page = url.searchParams.get("page");
-      onPageChange(Number(page));
+  const totalPages: number = Math.floor(
+    totalCount < 1000 ? totalCount : 1000 / pageSize
+  );
+  const handlePageNav = (pageNav: string) => {
+    if (pageNav === "first") {
+      setCurrentPage(1);
+    }
+    if (pageNav === "prev" && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+    if (pageNav === "next" && currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+    if (pageNav === "last") {
+      setCurrentPage(totalPages);
     }
   };
 
   return (
-    <ButtonGroup>
-      <IconButton onClick={() => handlePageChange("first")}>
-        <FirstPage />
-      </IconButton>
-      <IconButton onClick={() => handlePageChange("prev")}>
-        <ChevronLeft />
-      </IconButton>
-      <IconButton onClick={() => handlePageChange("next")}>
-        <ChevronRight />
-      </IconButton>
-      <IconButton onClick={() => handlePageChange("last")}>
-        <LastPage />
-      </IconButton>
-    </ButtonGroup>
+    <div className="flex justify-left items-center gap-4">
+      <ButtonGroup>
+        <IconButton onClick={() => handlePageNav("first")}>
+          <CaretDoubleLeft />
+        </IconButton>
+        <IconButton onClick={() => handlePageNav("prev")}>
+          <CaretLeft />
+        </IconButton>
+        <IconButton onClick={() => handlePageNav("next")}>
+          <CaretRight />
+        </IconButton>
+        <IconButton onClick={() => handlePageNav("last")}>
+          <CaretDoubleRight />
+        </IconButton>
+      </ButtonGroup>
+      <div>Page: {currentPage}</div>
+      <div>
+        Items per page:
+        <Select
+          value={pageSize}
+          onChange={(e) => setPageSize(Number(e.target.value))}
+        >
+          {[10, 20, 50, 100].map((count) => (
+            <MenuItem key={count} value={count}>
+              {count}
+            </MenuItem>
+          ))}
+        </Select>
+      </div>
+    </div>
   );
 };
 

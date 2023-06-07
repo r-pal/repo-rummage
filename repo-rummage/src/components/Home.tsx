@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Repo } from "../models/GitRepo";
 import { searchRepositories } from "../services/GitRepoService";
 import { RepoList } from "./RepoList";
@@ -8,42 +8,53 @@ import { styled } from "@mui/material";
 
 export const Home: React.FC = () => {
   const [repos, setRepos] = useState<Repo[]>([]);
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [linkHeader, setLinkHeader] = useState<string | null>(null);
-  const per_page = 10;
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(false);
   // const sort = "forks";
   // const order = "desc";
   const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
-  const handleSearch = useCallback(
-    async (page: number = 1) => {
-      const { repos, linkHeader } = await searchRepositories(
-        query,
-        page,
-        per_page
-        // sort,
-        // order
-      );
-      setRepos(repos);
-      setLinkHeader(linkHeader);
-    },
-    [query]
-  );
-
   useEffect(() => {
     if (searchTerm !== "") {
-      setQuery(searchTerm);
-      handleSearch();
+      console.log("SEARCH TERM: ", searchTerm);
+      // setQuery(searchTerm);
+
+      searchRepositories(
+        searchTerm,
+        currentPage,
+        pageSize
+        // sort,
+        // order
+      ).then(({ repos, linkHeader, totalCount }) => {
+        setRepos(repos);
+        setLinkHeader(linkHeader);
+        setTotalCount(totalCount);
+      });
+      // .catch(() => alert("Error"));
     }
-  }, [searchTerm, handleSearch]);
+  }, [searchTerm, pageSize, currentPage]);
 
   return (
-    <div>
+    <>
       <Header onSearch={setSearchTerm} />
       <Offset />
       <RepoList repos={repos} />
-      <Pagination linkHeader={linkHeader} onPageChange={handleSearch} />
-    </div>
+      {totalCount ? (
+        <Pagination
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalCount={totalCount}
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 };

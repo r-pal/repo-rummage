@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Repo } from "../models/GitRepo";
 import { GitFork, Star } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
 
 type RepoCardProps = {
   repo: Repo;
@@ -12,13 +13,13 @@ type RepoCardProps = {
 export const RepoCard: React.FC<RepoCardProps> = ({ repo }) => (
   <Card sx={{ minWidth: 275 }}>
     <CardContent>
-      <Typography variant="h5" component="div">
-        <a href={repo.html_url}>{repo.name}</a>
+      <Typography variant="h5" component="span">
+        <Link to={`/${repo.owner.login}/${repo.name}`}>{repo.name}</Link>
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
         {repo.description}
       </Typography>
-      <Typography variant="body2">
+      <Typography variant="body2" component="span">
         <div className="flex gap-4">
           <div className="flex gap-1">
             <GitFork size={16} />
