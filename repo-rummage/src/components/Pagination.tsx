@@ -40,7 +40,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex justify-left items-center gap-4">
+    <div className="flex justify-right items-center gap-4">
       <ButtonGroup>
         <IconButton onClick={() => handlePageNav("first")}>
           <CaretDoubleLeft />
@@ -55,7 +55,9 @@ const Pagination: React.FC<PaginationProps> = ({
           <CaretDoubleRight />
         </IconButton>
       </ButtonGroup>
-      <div>Page: {currentPage}</div>
+      <div>
+        Page {currentPage} of {totalPages}
+      </div>
       <div>
         Items per page:
         <Select

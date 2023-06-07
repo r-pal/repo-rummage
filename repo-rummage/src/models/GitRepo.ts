@@ -2,10 +2,12 @@ export interface Repo {
   id: number;
   name: string;
   full_name: string;
+  private: boolean;
   owner: {
     login: string;
     url: string;
     avatar_url: string;
+    html_url: string;
   };
   html_url: string;
   description: string;
@@ -13,6 +15,7 @@ export interface Repo {
   updated_at: string;
   pushed_at: string;
   language: string;
+  archived: boolean;
   forks_count: number;
   open_issues_count: number;
   watchers_count: number;

@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
       <AppBar position="fixed">
         <Toolbar className="flex justify-between gap-4">
           <SearchBar onSearch={onSearch} />
-          <h1 className="text-xl xl:text-4xl">
+          <h1 className="text-xl md:text-4xl">
             <a href="http://localhost:3000">Repo Rummage</a>
           </h1>
         </Toolbar>
