@@ -10,10 +10,19 @@ export const Home: React.FC = () => {
   const [query, setQuery] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [linkHeader, setLinkHeader] = useState<string | null>(null);
+  const per_page = 10;
+  // const sort = "forks";
+  // const order = "desc";
 
   const handleSearch = useCallback(
     async (page: number = 1) => {
-      const { repos, linkHeader } = await searchRepositories(query, page);
+      const { repos, linkHeader } = await searchRepositories(
+        query,
+        page,
+        per_page
+        // sort,
+        // order
+      );
       setRepos(repos);
       setLinkHeader(linkHeader);
     },

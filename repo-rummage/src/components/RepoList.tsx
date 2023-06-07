@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Pagination } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Repo } from "../models/GitRepo";
 import { RepoCard } from "./RepoCard";
 

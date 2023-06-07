@@ -1,14 +1,20 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { Repo } from "../models/GitRepo";
 
 export async function searchRepositories(
   query: string,
   page: number,
   per_page: number = 10
+  // sort: "stars" | "forks" | "help-wanted-issues" | "updated",
+  // order: "desc" | "asc"
 ): Promise<{ repos: Repo[]; linkHeader: string | null }> {
   try {
     const response = await axios.get(
-      `https://api.github.com/search/repositories?q=${query}&page=${page}&per_page=${per_page}`
+      `https://api.github.com/search/repositories?q=${query}
+      &page=${page}
+      &per_page=${per_page}`
+      // &sort=${sort}
+      // &order=${order}
     );
     const linkHeader = response.headers.link || null;
     return { repos: response.data.items, linkHeader };
