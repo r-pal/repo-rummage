@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-interface SearchBarProps {
+type SearchBarProps = {
   onSearch: (searchTerm: string) => void;
-}
+};
 
 export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +18,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search for repositories..."
+        placeholder="Search repos..."
       />
       <button type="submit">Search</button>
     </form>

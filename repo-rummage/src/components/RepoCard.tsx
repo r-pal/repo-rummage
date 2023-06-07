@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
-import { Repo } from "../models/repo";
+import { Repo } from "../models/GitRepo";
 
 interface RepoCardProps {
   repo: Repo;

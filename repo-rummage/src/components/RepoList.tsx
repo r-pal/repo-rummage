@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid } from "@mui/material";
-import { Repo } from "../models/repo";
+import { Grid, Pagination } from "@mui/material";
+import { Repo } from "../models/GitRepo";
 import { RepoCard } from "./RepoCard";
 
 interface RepoListProps {
@@ -8,11 +8,14 @@ interface RepoListProps {
 }
 
 export const RepoList: React.FC<RepoListProps> = ({ repos }) => (
-  <Grid container spacing={2}>
-    {repos.map((repo) => (
-      <Grid item key={repo.id} xs={12} sm={6} md={4}>
-        <RepoCard repo={repo} />
-      </Grid>
-    ))}
-  </Grid>
+  <div>
+    <Grid container spacing={2}>
+      {repos.map((repo) => (
+        <Grid item key={repo.id} xs={12} sm={6} md={4}>
+          <RepoCard repo={repo} />
+        </Grid>
+      ))}
+    </Grid>
+    {/* <Pagination linkHeader={linkHeader} onPageChange={handleSearch} /> */}
+  </div>
 );
