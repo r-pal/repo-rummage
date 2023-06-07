@@ -4,6 +4,7 @@ import { searchRepositories } from "../services/GitRepoService";
 import { RepoList } from "./RepoList";
 import Header from "./Header";
 import Pagination from "./Pagination";
+import { styled } from "@mui/material";
 
 export const Home: React.FC = () => {
   const [repos, setRepos] = useState<Repo[]>([]);
@@ -13,6 +14,7 @@ export const Home: React.FC = () => {
   const per_page = 10;
   // const sort = "forks";
   // const order = "desc";
+  const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
   const handleSearch = useCallback(
     async (page: number = 1) => {
@@ -39,6 +41,7 @@ export const Home: React.FC = () => {
   return (
     <div>
       <Header onSearch={setSearchTerm} />
+      <Offset />
       <RepoList repos={repos} />
       <Pagination linkHeader={linkHeader} onPageChange={handleSearch} />
     </div>

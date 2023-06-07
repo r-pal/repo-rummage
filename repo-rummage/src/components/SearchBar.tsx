@@ -1,3 +1,4 @@
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import React, { useState } from "react";
 
 type SearchBarProps = {
@@ -13,14 +14,17 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="flex gap-1">
       <input
         type="text"
+        className="text-black"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search repos..."
       />
-      <button type="submit">Search</button>
+      <button type="submit">
+        <MagnifyingGlass size={18} />
+      </button>
     </form>
   );
 };
