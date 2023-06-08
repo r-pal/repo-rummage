@@ -16,6 +16,5 @@ export const RepoList: React.FC<RepoListProps> = ({ repos }) => (
         </Grid>
       ))}
     </Grid>
-    {/* <Pagination linkHeader={linkHeader} onPageChange={handleSearch} /> */}
   </div>
 );

@@ -4,6 +4,16 @@ import { Repo } from "../models/GitRepo";
 import { getRepository } from "../services/GitRepoService";
 import { AppBar, Toolbar, Button, Box, Typography } from "@mui/material";
 import { format } from "date-fns";
+import {
+  Star,
+  Code,
+  GitFork,
+  WarningOctagon,
+  Calendar,
+  FileLock,
+  ArchiveBox,
+  Binoculars,
+} from "@phosphor-icons/react";
 
 type Params = {
   owner: string;
@@ -53,35 +63,79 @@ export const RepoDetail: React.FC = () => {
         </Toolbar>
       </AppBar>
       <Box className="mt-16 p-4">
-        <Typography variant="body1" color="textPrimary">
-          Stars: {repoData.stargazers_count}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center pb-4"
+        >
+          {repoData.description}
         </Typography>
-        <Typography variant="body1" color="textPrimary">
-          Language: {repoData.language}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center"
+        >
+          <Star size={16} weight="fill" /> {repoData.stargazers_count}
         </Typography>
-        <Typography variant="body1" color="textPrimary">
-          Forks: {repoData.forks_count}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center"
+        >
+          <Code size={16} weight="fill" /> {repoData.language}
         </Typography>
-        <Typography variant="body1" color="textPrimary">
-          Open Issues: {repoData.open_issues_count}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center"
+        >
+          <GitFork size={16} weight="fill" /> {repoData.forks_count}
         </Typography>
-        <Typography variant="body1" color="textPrimary">
-          Created At: {format(new Date(repoData.created_at), "dd-MM-yyyy")}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center"
+        >
+          <WarningOctagon size={16} weight="fill" />{" "}
+          {repoData.open_issues_count}
         </Typography>
-        <Typography variant="body1" color="textPrimary">
-          Last Updated At: {format(new Date(repoData.updated_at), "dd-MM-yyyy")}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center"
+        >
+          <Calendar size={16} weight="fill" /> Created At:{" "}
+          {format(new Date(repoData.created_at), "dd-MM-yyyy")}
         </Typography>
-        <Typography variant="body1" color="textPrimary">
-          Public or Private: {repoData.private ? "Private" : "Public"}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center"
+        >
+          <Calendar size={16} weight="fill" /> Last Updated At:{" "}
+          {format(new Date(repoData.updated_at), "dd-MM-yyyy")}
         </Typography>
-        <Typography variant="body1" color="textPrimary">
-          Archived: {repoData.archived ? "Yes" : "No"}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center"
+        >
+          <FileLock size={16} weight="fill" />{" "}
+          {repoData.private ? "Private" : "Public"}
+        </Typography>
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          className="flex gap-2 items-center pb-4"
+        >
+          <ArchiveBox size={16} weight="fill" /> Archived:{" "}
+          {repoData.archived ? "Yes" : "No"}
         </Typography>
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={() => navigate(-1)}
-          className="mt-4"
+          className="mt-8"
         >
           Return
         </Button>

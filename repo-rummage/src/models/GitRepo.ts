@@ -13,16 +13,9 @@ export interface Repo {
   description: string;
   created_at: string;
   updated_at: string;
-  pushed_at: string;
   language: string;
   archived: boolean;
   forks_count: number;
   open_issues_count: number;
-  watchers_count: number;
   stargazers_count: number;
-  license?: {
-    key: string;
-    name: string;
-    url: string;
-  };
 }

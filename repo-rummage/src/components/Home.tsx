@@ -16,13 +16,17 @@ export const Home: React.FC = () => {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [linkHeader, setLinkHeader] = useState<string | null>(null);
+
+  //pagination
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [currentPage, setCurrentPage] = useState(initialCurrentPage);
   const [totalCount, setTotalCount] = useState(0);
-  const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // Update local storage when search term or pagination details change
+  //warning
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
+
+  // Retain search and pagaination details locally
   useEffect(() => {
     localStorage.setItem("searchTerm", searchTerm);
     localStorage.setItem("pageSize", pageSize.toString());
