@@ -1,33 +1,31 @@
 import axios from "axios";
 import { Repo } from "../models/GitRepo";
+// sort: "stars" | "forks" | "help-wanted-issues" | "updated",
+// order: "desc" | "asc"
 
+// &sort=${sort}
+// &order=${order}
 export async function searchRepositories(
   query: string,
   page: number,
   per_page: number
-  // sort: "stars" | "forks" | "help-wanted-issues" | "updated",
-  // order: "desc" | "asc"
 ): Promise<{ repos: Repo[]; linkHeader: string | null; totalCount: number }> {
-  try {
-    const response = await axios.get(
+  const { data, headers } = await axios
+    .get(
       `https://api.github.com/search/repositories?q=${query}&page=${page}&per_page=${per_page}`
-      // &sort=${sort}
-      // &order=${order}
-    );
-    return {
-      repos: response.data.items,
-      linkHeader: response.headers.link || null,
-      totalCount: response.data.total_count,
-    };
-  } catch (err: unknown) {
-    if (axios.isAxiosError(err)) {
-      console.error(err);
-      if (err.response?.status === 403 && !err.response.data) {
-        alert("Reached limit of 10 hits per minute!");
+    )
+    .catch((error) => {
+      if (axios.isAxiosError(error) && error.response?.status === 403) {
+        throw error;
       }
-    }
-    throw err;
-  }
+      throw error;
+    });
+
+  return {
+    repos: data.items,
+    linkHeader: headers.link || null,
+    totalCount: data.total_count,
+  };
 }
 
 export async function getRepository(

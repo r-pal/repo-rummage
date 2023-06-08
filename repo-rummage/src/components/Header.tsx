@@ -3,6 +3,7 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import { Link } from "react-router-dom";
 
 type HeaderProps = {
   onSearch: (searchTerm: string) => void;
@@ -15,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
         <Toolbar className="flex justify-between gap-4">
           <SearchBar onSearch={onSearch} />
           <h1 className="text-xl md:text-4xl">
-            <a href="http://localhost:3000">Repo Rummage</a>
+            <Link to={"/"}>Repo Rummage</Link>
           </h1>
         </Toolbar>
       </AppBar>
